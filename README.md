@@ -1,1 +1,2 @@
-# roboshop-shell
+# learning devops
+#shell scripting practicing
