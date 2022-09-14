@@ -39,8 +39,16 @@ if [ $? -eq 0 ]; then
      StatusCheck
 
 
-     echo Installing NodeJs Dependicies
+     echo Installing NODEJS Dependicies
      npm install &>>/tmp/${COMPONENT}.log
      StatusCheck
 
+     echo Configuring the ${COMPONENT} SystemD Service
+     mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>/tmp/${COMPONENT}.log && systemctl daemon-reload &>>/tmp/${COMPONENT}.log
+     StatusCheck
+
+
+     echo Starting and Enabling Application
+     systemctl start ${COMPONENT} &>>/tmp/${COMPONENT}.log && systemctl enable ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     StatusCheck
    }
