@@ -25,21 +25,20 @@ if [ $? -eq 0 ]; then
      fi
 
      echo Downloading the Application Content
-     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip"&>>/tmp/${COMPONENT}.log
+     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>/tmp/${COMPONENT}.log
      cd /home/roboshop &>>/tmp/${COMPONENT}.log
-     Starting
+     StatusCheck
 
      echo Cleaning old application content
      rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
      StatusCheck
 
      echo Extract Application Archive
-     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
-     cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log &&  cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
      StatusCheck
 
 
-     echo Installing NODEJS Dependicies
+     echo Installing NodeJs Dependicies
      npm install &>>/tmp/${COMPONENT}.log
      StatusCheck
 
