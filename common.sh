@@ -43,4 +43,4 @@ if [ $? -eq 0 ]; then
      npm install &>>/tmp/${COMPONENT}.log
      StatusCheck
 
-   }
+   
