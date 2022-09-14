@@ -8,7 +8,7 @@ DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print
 echo MYSQL_PASSWORD=$MYSQL_PASSWORD
 echo "alter user 'root'@'localhost' identified with mysql_native_password by '$MYSQL_PASSWORD';" | mysql --connect-expired-password -uroot -p${DEFAULT_PASSWORD}
 
-echo "uninstall plugin validate_password;" | mysql -uroot -pMYSQL_PASSWORD
+echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1
 #> uninstall plugin validate_password;
 
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
