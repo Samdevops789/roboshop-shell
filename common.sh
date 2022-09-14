@@ -9,19 +9,38 @@ if [ $? -eq 0 ]; then
 
    NODEJS() {
      echo Setting NodeJs repos
-     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/cart.log
+     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
      StatusCheck
 
      echo Installing NodeJs
-     yum install nodejs -y &>>/tmp/cart.log
+     yum install nodejs -y &>>/tmp/${COMPONENT}.log
      StatusCheck
 
 
-     id roboshop &>>/tmp/cart.log
+     id roboshop &>>/tmp/${COMPONENT}.log
      if [ $? -nq 0 ]; then
      echo Adding a Application User
-     useradd roboshop &>>/tmp/cart.log
+     useradd roboshop &>>/tmp/${COMPONENT}.log
      StatusCheck
      fi
+
+     echo Downloading the Application Content
+     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip"&>>/tmp/${COMPONENT}.log
+     cd /home/roboshop &>>/tmp/${COMPONENT}.log
+     Starting
+
+     echo Cleaning old application content
+     rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     StatusCheck
+
+     echo Extract Application Archive
+     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv cart-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     StatusCheck
+
+
+     echo Installing Node Js Dependicies
+     npm install &>>/tmp/${COMPONENT}.log
+     StatusCheck
 
    }
