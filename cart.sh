@@ -15,7 +15,8 @@ if [ $? -eq 0 ]; then
     echo -e "\e[31mFAILURE\e[0m"
      exit 1
     fi
-
+id roboshop &>>/tmp/cart.log
+if [ $? -nq 0 ]; then
 echo Adding a Application User
 useradd roboshop &>>/tmp/cart.log
 if [ $? -eq 0 ]; then
