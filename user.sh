@@ -1,4 +1,4 @@
 source common.sh
 
-COMPONENT = catalogue
+COMPONENT = user
 NODEJS
