@@ -40,7 +40,7 @@ if [ $? -eq 0 ]; then
 
 
      echo Installing NodeJs Dependcies
-     npm install &>> /tmp/$ {COMPONENT}.log
+     npm install  &>>/tmp/${COMPONENT}.log
      StatusCheck
 
      echo Configuring the ${COMPONENT} SystemD Service
