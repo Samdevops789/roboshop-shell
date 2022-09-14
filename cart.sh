@@ -4,6 +4,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+    exit 1
     fi
 
 echo Installing Node Js
@@ -12,6 +13,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Adding a Application User
@@ -20,6 +22,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Downloading the Application Content
@@ -29,6 +32,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Cleaning old application content
@@ -37,7 +41,9 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
+
 echo Extract Application Archive
 unzip -o /tmp/cart.zip &>>/tmp/cart.log
 mv cart-main cart &>>/tmp/cart.log
@@ -46,6 +52,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Installing Node Js Dependicies
@@ -54,6 +61,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Configuring the Cart SystemD Service
@@ -63,6 +71,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
 
 echo Starting and Enabling Application
@@ -72,4 +81,5 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mFAILURE\e[0m"
+     exit 1
     fi
