@@ -15,7 +15,7 @@ if [ $? -eq 0 ]; then
     echo -e "\e[31mFAILURE\e[0m"
      exit 1
     fi
-    
+
 id roboshop &>>/tmp/cart.log
 if [ $? -nq 0 ]; then
 echo Adding a Application User
@@ -26,6 +26,7 @@ if [ $? -eq 0 ]; then
     echo -e "\e[31mFAILURE\e[0m"
      exit 1
     fi
+  fi
 
 echo Downloading the Application Content
 curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip"&>>/tmp/cart.log
