@@ -34,12 +34,12 @@ if [ $? -eq 0 ]; then
      StatusCheck
 
      echo Extract Application Archive
-     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv cart-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
      cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
      StatusCheck
 
 
-     echo Installing Node Js Dependicies
+     echo Installing NodeJs Dependicies
      npm install &>>/tmp/${COMPONENT}.log
      StatusCheck
 
