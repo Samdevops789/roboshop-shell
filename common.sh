@@ -1,4 +1,4 @@
-StatusCheck() {
+SStatusCheck() {
 if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
@@ -39,8 +39,8 @@ if [ $? -eq 0 ]; then
      StatusCheck
 
 
-     echo Installing NodeJs Dependicies
-     npm install &>>/tmp/${COMPONENT}.log
+     echo Installing NodeJs Dependcies
+     npm install &>> /tmp/$ {COMPONENT}.log
      StatusCheck
 
      echo Configuring the ${COMPONENT} SystemD Service
