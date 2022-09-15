@@ -1,4 +1,4 @@
 source common.sh
 
-COMPONENT = user
+COMPONENT=user
 NODEJS
