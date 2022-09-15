@@ -18,7 +18,7 @@ if [ $? -eq 0 ]; then
 
 
      id roboshop &>>/tmp/${COMPONENT}.log
-     if [ $? -nq 0 ]; then
+     if [ $? -ne 0 ]; then
      echo Adding a Application User
      useradd roboshop &>>/tmp/${COMPONENT}.log
      StatusCheck
