@@ -29,14 +29,12 @@ fi
 
 echo "show plugins;" | mysql -uroot -p$MYSQL_PASSWORD 2>&1 | grep validate_password &>>${LOG}
 if [ $? -eq 0 ]; then
-  echo Remove Validate Plugin
+  echo Remove Password Validate Plugin
   echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
    StatusCheck
  f1
 
 exit
-
-
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
 
 cd /tmp
