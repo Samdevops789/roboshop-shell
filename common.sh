@@ -90,4 +90,4 @@ if [ $? -eq 0 ]; then
     fi
 
  LOG=/tmp/${COMPONENT}.log
- rm -rf {LOG}
+ rm -rf ${LOG}
