@@ -37,5 +37,5 @@ if [ $? -eq 0 ]; then
 DOWNLOAD
 
 echo "Extract & Load Schema"
-cd /tmp &>>${LOG} && unzip -o mysql.zip &>>${LOG} && cd mysql-main &>>${LOG} && mysql -u root -pRoboShop@1 <shipping.sql &>>${LOG}
+cd /tmp &>>${LOG} && unzip -o mysql.zip &>>${LOG} && cd mysql-main &>>${LOG} && mysql -u root -pRoboshop@1 <shipping.sql &>>${LOG}
 StatusCheck
