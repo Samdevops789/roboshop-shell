@@ -14,46 +14,73 @@ if [ $? -eq 0 ]; then
       StatusCheck
     }
 
+    APP_USER_SETUP() {
+      id roboshop &>>${LOG}
+      if [ $? -ne 0 ]; then
+        echo Adding Application User
+        useradd roboshop &>>${LOG}
+        StatusCheck
+      fi
+    }
+
+    APP_CLEAN() {
+      echo Cleaning old application content
+      cd /home/roboshop &>>${LOG} && rm -rf ${COMPONENT} &>>${LOG}
+      StatusCheck
+
+      echo Extract Application Archive
+      unzip -o /tmp/${COMPONENT}.zip &>>${LOG} && mv ${COMPONENT}-main ${COMPONENT} &>>${LOG} && cd ${COMPONENT} &>>${LOG}
+      StatusCheck
+    }
+
+    SYSTEMD() {
+      echo Update SystemD Config
+      sed -i -e 's/MONGO_DNSNAME/mongodb-dev.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb-dev.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis-dev.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue-dev.roboshop.internal/' -e 's/AMQPHOST/rabbitmq-dev.roboshop.internal/' -e 's/CARTHOST/cart-dev.roboshop.internal/' -e 's/USERHOST/user-dev.roboshop.internal/' -e 's/CARTENDPOINT/cart-dev.roboshop.internal/' -e 's/DBHOST/mysql-dev.roboshop.internal/' /home/roboshop/${COMPONENT}/systemd.service &>>${LOG}
+      StatusCheck
+
+      echo Configuring ${COMPONENT} SystemD Service
+      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl daemon-reload &>>${LOG}
+      StatusCheck
+
+      echo Starting ${COMPONENT} Service
+      systemctl restart ${COMPONENT} &>>${LOG} && systemctl enable ${COMPONENT} &>>${LOG}
+      StatusCheck
+    }
+
    NODEJS() {
-     echo Setting NodeJs repos
-     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
+    echo Setting NodeJS repos
+      curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG}
+      StatusCheck
+
+      echo Installing NodeJS
+      yum install nodejs -y &>>${LOG}
+      StatusCheck
+
+      APP_USER_SETUP
+      DOWNLOAD
+      APP_CLEAN
+
+      echo Installing NodeJS Dependencies
+      npm install &>>${LOG}
+      StatusCheck
+
+      SYSTEMD
+    }
+
+   JAVA() {
+     echo Install Maven
+     yum install maven -y &>>${LOG}
      StatusCheck
 
-     echo Installing NodeJs
-     yum install nodejs -y &>>/tmp/${COMPONENT}.log
+     APP_USER_SETUP
+     DOWNLOAD
+     APP_CLEAN
+
+     echo Make application package
+     mvn clean package &>>${LOG} && mv target/shipping-1.0.jar shipping.jar &>>${LOG}
      StatusCheck
 
-
-     id roboshop &>>/tmp/${COMPONENT}.log
-     if [ $? -ne 0 ]; then
-     echo Adding a Application User
-     useradd roboshop &>>/tmp/${COMPONENT}.log
-     StatusCheck
-     fi
-
-    DOWNLOAD
-
-    echo Cleaning old application content
-    cd /home/roboshop &>>/tmp/${COMPONENT}.log && rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
-    StatusCheck
-
-     echo Extract Application Archive
-     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log && cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
-     StatusCheck
-
-
-     echo Installing NodeJs Dependcies
-     npm install  &>>/tmp/${COMPONENT}.log
-     StatusCheck
-
-     echo Configuring the ${COMPONENT} SystemD Service
-     mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>/tmp/${COMPONENT}.log && systemctl daemon-reload &>>/tmp/${COMPONENT}.log
-     StatusCheck
-
-
-     echo Starting and Enabling Application
-     systemctl start ${COMPONENT} &>>/tmp/${COMPONENT}.log  &&  systemctl enable ${COMPONENT} &>>/tmp/${COMPONENT}.log
-     StatusCheck
+     SYSTEMD
    }
 
    USER_ID=$(id -u)
