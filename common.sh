@@ -1,4 +1,4 @@
-SStatusCheck() {
+StatusCheck() {
 if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
   else
@@ -9,7 +9,7 @@ if [ $? -eq 0 ]; then
 
    NODEJS() {
      echo Setting NodeJs repos
-     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
+     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/$ {COMPONENT}.log
      StatusCheck
 
      echo Installing NodeJs
