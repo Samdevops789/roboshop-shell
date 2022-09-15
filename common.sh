@@ -7,6 +7,13 @@ if [ $? -eq 0 ]; then
     fi
     }
 
+    DOWNLOAD()
+     {
+       echo Downloading ${COMPONENT} Application Content
+       curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>/tmp/${COMPONENT}.log
+      StatusCheck
+    }
+
    NODEJS() {
      echo Setting NodeJs repos
      curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
@@ -24,18 +31,14 @@ if [ $? -eq 0 ]; then
      StatusCheck
      fi
 
-     echo Downloading the Application Content
-     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>/tmp/${COMPONENT}.log
-     cd /home/roboshop &>>/tmp/${COMPONENT}.log
-     StatusCheck
+    DOWNLOAD
 
-     echo Cleaning old application content
-     rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
-     StatusCheck
+    echo Cleaning old application content
+    cd /home/roboshop &>>/tmp/${COMPONENT}.log && rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
+    StatusCheck
 
      echo Extract Application Archive
-     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
-     cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log && mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log && cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
      StatusCheck
 
 
@@ -58,3 +61,6 @@ if [ $? -eq 0 ]; then
     echo -e "\e[31m You Should Run this script as a root user or sudo\e[0m"
     exit 1
     fi
+
+ LOG=/tmp/${COMPONENT}.log
+ rm -rf {LOG}
