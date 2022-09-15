@@ -9,7 +9,7 @@ if [ $? -eq 0 ]; then
 
    NODEJS() {
      echo Setting NodeJs repos
-     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/$ {COMPONENT}.log
+     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
      StatusCheck
 
      echo Installing NodeJs
