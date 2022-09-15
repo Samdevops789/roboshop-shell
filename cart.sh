@@ -1,7 +1,7 @@
 source common.sh
 
 
- COMPONENT = cart.sh
+ COMPONENT = cart
  NODEJS
 
 

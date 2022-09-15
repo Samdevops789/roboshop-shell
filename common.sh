@@ -18,7 +18,7 @@ if [ $? -eq 0 ]; then
 
 
      id roboshop &>>/tmp/${COMPONENT}.log
-     if [ $? -eq 0 ]; then
+     if [ $? -nq 0 ]; then
      echo Adding a Application User
      useradd roboshop &>>/tmp/${COMPONENT}.log
      StatusCheck
@@ -49,6 +49,6 @@ if [ $? -eq 0 ]; then
 
 
      echo Starting and Enabling Application
-     systemctl start ${COMPONENT} &>>/tmp/${COMPONENT}.log && systemctl enable ${COMPONENT} &>>/tmp/${COMPONENT}.log
+     systemctl start ${COMPONENT} &>>/tmp/${COMPONENT}.log  &&  systemctl enable ${COMPONENT} &>>/tmp/${COMPONENT}.log
      StatusCheck
    }
