@@ -8,7 +8,7 @@ if [ -z "$MYSQL_PASSWORD" ]; then
   fi
 
 echo setup YUM repo
-curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo  &>>${LOG}
+curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo &>>${LOG}
 StatusCheck
 
 echo Install Mysql
