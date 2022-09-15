@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 
-# Roboshop-front end setup
+# Roboshop=front-end-setup
 
 source common.sh
 
 COMPONENT=frontend
 
 echo installing Nginx
-yum install nginx -y
+yum install nginx -y &>>${LOG}
 StatusCheck
 
 DOWNLOAD
