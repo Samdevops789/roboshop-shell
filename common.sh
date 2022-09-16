@@ -35,7 +35,7 @@ if [ $? -eq 0 ]; then
 
     SYSTEMD() {
       echo Configuring ${COMPONENT} SystemD Service
-      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl dameon-reload &>>${LOG}
+      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl daemon-reload &>>${LOG}
       StatusCheck
 
       echo Starting ${COMPONENT} Service
