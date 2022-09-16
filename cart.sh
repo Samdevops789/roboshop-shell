@@ -1,9 +1,8 @@
+COMPONENT=cart
+
 source common.sh
 
-
- COMPONENT=cart
-
- NODEJS
+NODEJS
 
 
 
