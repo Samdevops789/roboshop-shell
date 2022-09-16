@@ -43,7 +43,7 @@ if [ $? -eq 0 ]; then
       StatusCheck
 
       echo Starting ${COMPONENT} Service
-      systemctl start ${COMPONENT} &>>${LOG} && systemctl enable ${COMPONENT} &>>${LOG}
+      systemctl restart ${COMPONENT} &>>${LOG} && systemctl enable ${COMPONENT} &>>${LOG}
       StatusCheck
     }
 
