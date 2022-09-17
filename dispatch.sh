@@ -1,16 +1,20 @@
-set -e
-yum install golang -y
-useradd roboshop
+COMPONENT=dispatch
 
-curl -L -s -o /tmp/dispatch.zip https://github.com/roboshop-devops-project/dispatch/archive/refs/heads/main.zip
-unzip -o /tmp/dispatch.zip
-mv dispatch-main dispatch
-cd dispatch
-go mod init dispatch
-go get
-go build
+source common.sh
 
-mv /home/roboshop/dispatch/systemd.service /etc/systemd/system/dispatch.service
-systemctl daemon-reload
-systemctl enable dispatch
-systemctl start dispatch
+echo Install GoLang
+yum install golang -y &>>${LOG}
+StatusCheck
+
+echo adding User
+useradd roboshop &>>${LOG}
+
+curl -L -s -o /tmp/dispatch.zip https://github.com/roboshop-devops-project/dispatch/archive/refs/heads/main.zip &>>${LOG}
+unzip -o /tmp/dispatch.zip &>>${LOG}
+mv dispatch-main dispatch &>>${LOG}
+cd dispatch &>>${LOG}
+go mod init dispatch &>>${LOG}
+go get &>>${LOG}
+go build &>>${LOG}
+StatusCheck
+
