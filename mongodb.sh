@@ -1,5 +1,4 @@
 COMPONENT=mongodb
-
 source common.sh
 
 echo Setup YUM repo
@@ -27,4 +26,5 @@ StatusCheck
 echo Load Schema
 cd mongodb-main && mongo < catalogue.js &>>${LOG} && mongo < users.js &>>${LOG}
 StatusCheck
+
 
