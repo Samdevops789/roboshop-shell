@@ -1,23 +1,28 @@
 COMPONENT=dispatch
-
 source common.sh
 
-echo Install GoLang
+echo Installing GOLang
 yum install golang -y &>>${LOG}
 StatusCheck
 
-echo adding User
-useradd roboshop &>>${LOG}
+APP_USER_SETUP
+DOWNLOAD
+APP_CLEAN
 
-echo Dispatching
-curl -L -s -o /tmp/dispatch.zip https://github.com/roboshop-devops-project/dispatch/archive/refs/heads/main.zip &>>${LOG}
-
-echo Extractibg dispatch
-unzip -o /tmp/dispatch.zip &>>${LOG}
-mv dispatch-main dispatch &>>${LOG}
-cd dispatch &>>${LOG}
-go mod init dispatch &>>${LOG}
-go get &>>${LOG}
-go build &>>${LOG}
+echo init dispatch
+go mod init dispatch &>>${LOG} && go get &>>${LOG} && go build &>>${LOG}
 StatusCheck
+
+SYSTEMD
+
+
+
+
+
+
+
+
+
+
+
 
