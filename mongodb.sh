@@ -19,11 +19,9 @@ StatusCheck
 
 DOWNLOAD
 
-echo "Extract Schema Files"
+echo "Extracting Schema Files"
 cd /tmp && unzip -o mongodb.zip &>>${LOG}
 StatusCheck
-
-
 
 echo Load Schema
 cd mongodb-main
