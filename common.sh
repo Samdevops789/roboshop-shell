@@ -10,7 +10,7 @@ if [ $? -eq 0 ]; then
     DOWNLOAD()
      {
        echo Downloading ${COMPONENT} Application Content
-       curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${log}
+       curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG}
       StatusCheck
     }
 
